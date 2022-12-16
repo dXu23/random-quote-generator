@@ -5,16 +5,23 @@ import Quote from '../components/Quote';
 import IQuote from '../shared/quote.interface';
 import { API_URL } from '../constants';
 
+function unslugify(sluggedAuthorName: string): string {
+    return sluggedAuthorName
+        .split('-')
+        .map((s: string) => s[0].toUpperCase() + s.slice(1))
+        .join(' ');
+}
+
 export default function AuthorQuotes() {
-    const { author } = useParams();
+    const { authorSlug } = useParams();
     const [authorQuotes, setAuthorQuotes] = useState<IQuote[]>([]);
 
     useEffect(() => {
         async function getAuthorQuotes() {
-            const res = await fetch(`${API_URL}?author=${author}&count=3`);
+            const res = await fetch(`${API_URL}/quotes?author=${authorSlug}&limit=3&page=1`);
             const quotesJson = await res.json();
 
-            setAuthorQuotes(quotesJson.data);
+            setAuthorQuotes(quotesJson.results);
         }
 
         getAuthorQuotes();
@@ -24,8 +31,8 @@ export default function AuthorQuotes() {
 
     return (
       <article>
-        <h1>{author}</h1>
-          {authorQuotes.map((quoteObj: IQuote) => <Quote>{quoteObj.quoteText}</Quote>)}
+        <h1>{authorQuotes[0]?.author}</h1>
+          {authorQuotes.map((quoteObj: IQuote) => <Quote>{quoteObj.content}</Quote>)}
       </article>
     );
 }

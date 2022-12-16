@@ -14,7 +14,7 @@ function App() {
         <main>
           <Routes>
             <Route path="/" element={<Random/>} />
-            <Route path="/:author" element={<AuthorQuotes />} />
+            <Route path="/:authorSlug" element={<AuthorQuotes />} />
           </Routes>
         </main>
       </>

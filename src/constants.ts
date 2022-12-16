@@ -1,2 +1,2 @@
 
-export const API_URL = 'https://quote-garden.herokuapp.com/api/v3/quotes/random';
+export const API_URL = 'https://api.quotable.io';

@@ -8,14 +8,14 @@ import Author from '../components/Author';
 
 export default function Random() {
 
-    const [quoteObj, setQuoteObj] = useState<IQuote>({ quoteText: '', quoteAuthor: '', quoteGenre: '' });
+    const [quoteObj, setQuoteObj] = useState<IQuote>({ content: '', author: '', authorSlug: '', tags: [] });
 
     useEffect(() => {
         async function getQuoteData() {
-          const quoteData = await fetch(API_URL);
+          const quoteData = await fetch(`${API_URL}/random`);
           const quoteJson = await quoteData.json();
 
-          setQuoteObj({ ...quoteJson.data[0] });
+          setQuoteObj(quoteJson);
         }
 
         getQuoteData();
@@ -24,9 +24,9 @@ export default function Random() {
     return (
       <>
         <Quote>
-          {quoteObj.quoteText}
+          {quoteObj.content}
         </Quote>
-        <Author author={quoteObj.quoteAuthor} genre={quoteObj.quoteGenre} />
+        <Author {...quoteObj}/>
       </>
     );
 }

@@ -29,31 +29,17 @@ function useHover() {
 
 interface AuthorProps {
     author: string;
-    genre: string;
+    authorSlug: string;
+    tags: string[];
 }
 
 export default function Author(props: AuthorProps) {
-    /*
-    const [isHovering, ref] = useHover();
-    let styles = {
-        backgroundColor: 'inherit',
-        color: '4f4f4f'
-    };
-
-    if (isHovering) {
-        styles = {
-            backgroundColor: '#333',
-            color: '#f2f2f2'
-        };
-    }
-    */
-
     return (
-      <Link to={'/' + props.author}>
+      <Link to={'/' + props.authorSlug}>
         <div className="quote-info">
           <div>
             <div className="author">{props.author}</div>
-            <div className="genre">{props.genre}</div>
+            <div className="tags">{props.tags.join(', ')}</div>
           </div>
           <div className="rarr">&rarr;</div>
         </div>
