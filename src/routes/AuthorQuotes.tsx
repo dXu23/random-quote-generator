@@ -27,8 +27,6 @@ export default function AuthorQuotes() {
         getAuthorQuotes();
     }, []);
 
-    console.log(authorQuotes);
-
     return (
       <article>
         <h1>{authorQuotes[0]?.author}</h1>
